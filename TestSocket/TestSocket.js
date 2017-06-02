@@ -14,8 +14,6 @@ server.listen(port, function(){
 	console.log('Running on port: ', port, '\n');
 });
  
-var net = require('net');
- 
 var client = new net.Socket();
 client.connect(port, function() {
 	console.log('Connected');
