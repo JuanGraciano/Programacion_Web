@@ -8,7 +8,7 @@ var server = net.createServer(function(socket) {
 	socket.end();
 }) 
  
-var port = 8080;
+var port = 6332;
  
 server.listen(port, function(){
 	console.log('Running on port: ', port, '\n');
@@ -19,3 +19,4 @@ client.connect(port, function() {
 	console.log('Connected');
 	client.write('Hello, server! Client.');
 }); 
+
