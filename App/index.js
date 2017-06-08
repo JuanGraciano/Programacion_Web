@@ -17,7 +17,6 @@ app.engine('handlebars',
 app.set('view engine', 'handlebars');
 
 app.get('/', function (req, res) {
-	console.log(__dirname)
   	 res.render('home');
   });
 
