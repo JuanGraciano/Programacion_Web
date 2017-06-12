@@ -2,7 +2,7 @@ var express = require('express');
 var app = express();
 var exphbs = require('express-handlebars');
 var helpers = require('./lib/helpers');
-var port = 6332
+var port = 6332;
 
 app.use('/static', express.static(__dirname + '/public'));
 
