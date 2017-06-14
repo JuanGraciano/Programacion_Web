@@ -42,3 +42,44 @@ body {
 		float:none;
 	}
 }
+
+.footer {
+  	position: absolute;
+  	right: 0;
+  	bottom: 0;
+  	left: 0;
+  	padding: 1rem;
+  	background-color: #333;
+  	text-align: center;
+}
+
+.footer ul {
+  	list-style-type: none;
+    margin: 0;
+    padding: 0;
+    background-color: #333;
+    overflow: hidden;
+}
+
+.footer ul > li {
+  	display: inline-block;
+}
+
+.footer ul li a {
+  	display: block;
+  	color: white;
+  	text-align: center;
+  	padding: 14px 16px;
+  	text-decoration: none;
+}
+
+.footer ul li a:hover:not(.active) {
+  	background-color: #111;
+}
+
+@media screen and (max-width: 600px) {
+  	.footer ul > li {
+   		float: none;
+   		display: block;
+  	}
+}
