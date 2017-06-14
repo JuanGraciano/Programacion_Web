@@ -4,13 +4,13 @@ var exphbs = require('express-handlebars');
 var helpers = require('./lib/helpers');
 var port = 6332;
 
-app.use('/static', express.static(__dirname + '/public'));
+app.use('/static', express.static('public'));
 
 app.engine('handlebars', 
 			exphbs({defaultLayout: 'main', 
 			helpers:helpers,
-			layoutsDir: __dirname + '/views/layouts/',
-			partialsDir: __dirname +  '/views/partials/'
+			layoutsDir: 'views/layouts/',
+			partialsDir: 'views/partials/'
 			})
 );
 
