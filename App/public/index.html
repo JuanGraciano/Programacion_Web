@@ -2,54 +2,57 @@
 <html>
 
 <head>
-	<style>
-		/**{
-			font-size: 20px;
-			//color: orange !important;
-
-		}*/
-		/*#container ul{
-			font-size: 20px;
-			color: orange;
-			
-		}*/
-		/*h1 + ul{
-			font-size: 20px;
-			color: orange;
-			
-		}*/
-		.woot{
-			font-size: 20px;
-			color: orange;
-			
-		}
-	</style>
+	<link rel="stylesheet" type="text/css" href="static/css/custom.css">
 </head>
 
-<body>
-	<h1 style="color:yellow">Heading</h1>
-	<div class="woot">
-		<p style="color:red">paragraph.<br>paragraph.</p>
-		<ul>
-				<li>Elem 1</li>
-				<li>
-					<ol>
-							<br>
-							<li>Elem 2<html>
-							<head>
-								<title></title>
-							</head>
-							<body>
-							
-							</body>
-							</html></li>
-					</ol>
-				</li>
-		</ul>
-		<ol>
-				<li>Elem 1</li>
-		</ol>
+<body onload="head()">
+	<div>
+	  <p>This is a paragraph.</p>
 	</div>
+
+	<table>
+	  <tr>
+	    <th>Month</th>
+	    <th>Savings</th>
+	  </tr>
+	  <tr>
+	    <td>January</td>
+	    <td>$100</td>
+	  </tr>
+	</table>
+
+	<div id="head"></div>
+
+	<script >
+	var tree = '';
+	function head(){
+		tree = '<ul>';
+		tree += '<li> ' + document.body.tagName + '</li>';
+		for(var i = 0; i < document.body.children.length; i++){
+			tree += '<ul>';
+			headChild(document.body.children, i);
+			tree += '</ul>';
+		}
+		tree += '</ul>';
+		document.getElementById("head").innerHTML = tree;
+		//document.write(tree);
+	}
+
+	function headChild(tag, i)
+	{
+	    if(tag[i].children.length >= 0){
+	    	tree += '<il> ' + tag[i].tagName + '</li>';
+	    }
+    	for(var j = 0; j < tag[i].children.length; j++) {
+    		tree += '<ul>';	
+    		headChild(tag[i].children, j);
+    		tree += '</ul>';
+    	}
+	     
+	}
+
+	</script>
+
 </body>
 
 </html>

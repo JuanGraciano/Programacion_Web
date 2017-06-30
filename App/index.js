@@ -24,6 +24,10 @@ app.get('/about', function (req, res) {
   	res.render('about');
   });
 
+app.get('/jp', function (req, res) {
+  	res.sendFile('public/index.html', {root: __dirname});
+  });
+
 app.listen(port, function () {
   console.log('App listening on port ', port);
 });
