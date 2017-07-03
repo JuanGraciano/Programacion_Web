@@ -24,7 +24,7 @@ app.get('/about', function (req, res) {
   	res.render('about');
   });
 
-app.get('/jp', function (req, res) {
+app.get('/perreo', function (req, res) {
     res.render('about');
   });
 
