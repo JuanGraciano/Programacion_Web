@@ -105,108 +105,57 @@ body {
   	}
 }
 
-
-.demo {
-  margin: 0;
-  /*width: 94%;*/
-  text-decoration: none;
-}
-
-.root {
-    text-align: center;
-    text-decoration: none;
-    /*padding-top: p: 5px;*/
-    /*padding-bottom: 5px;*/
-    /*padding-right: 5px;*/
-    /*padding-left: 5px;*/
-    /*width: 50px;*/
-    border: 1px solid #141B41;
-    border-radius: 30px;
-    background: #141B41;
-    /*color: white;*/
-    /*margin: 0 auto;*/
-    padding: 2px 10px;
-    display: inline;
-    color: white;
-    /*display: block;*/
-
-}
-
-.hasChild {
-    /*text-align: center;*/
-    text-decoration: none;
-    margin-top: 10px;
-    width: 50px;
-    border: 1px solid #306BAC;
-    border-radius: 5px;
-    background: #306BAC;
-    color: white;
-    display: block;
-    padding: 5px 10px;
-}
-
-.child{
-    text-align: center;
-    text-decoration: none;
-    width: 70px;
-    border: 1px solid #918EF4;
-    border-radius: 30px;
-    background: #918EF4;
-    color: white;
-    display: block;
-    padding: 5px 10px;
-}
-
-
-
-#creation li {
-  margin: 5px;
+#head li {
   margin-left: 15px;
-  border: 2px solid;
-  border-radius: 10px;
+  border: 1px solid black;
   color: white;
 }
 
-.father {
+.dad li {
+  background-color: brown;
+  display: inline;
+}
+
+.root {
   display: block;
   padding-top:10px;
 }
 
-.child {
+.pages {
   padding-top:10px;
 }
 
-.father li {
+.root li {
   background-color: red;
   display: inline;
   padding: 2px 10px;
   margin; 5px;
 }
 
-.child li {
+.pages li {
   background-color: blue;
 }
 
-.father .child .child li{
+.root .pages .pages li{
   background-color: green;
 }
 
-.father .child .child .child li{
+.root .pages .pages .pages li{
   background-color: darkblue;
 }
 
-.father .child .child .child .child li{
+.root .pages .pages .pages .pages li{
   background-color: darkred;
 }
 
-.father .child .child .child .child .child li{
+.root .pages .pages .pages .pages .pages li{
   background-color: darkgreen;
 }
 
-.father .child .child .child .child .child .child li{
+.root .pages .pages .pages .pages .pages .pages li{
   background-color: orange;
 }
 
-.father .child .child .child .child .child .child .child li{
+.root .pages .pages .pages .pages .pages .pages .pages li{
   background-color: gray;
 }
