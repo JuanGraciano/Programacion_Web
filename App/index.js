@@ -25,8 +25,7 @@ app.get('/about', function (req, res) {
   });
 
 app.get('/jp', function (req, res) {
-  	//res.sendFile('public/index.html', {root: __dirname});
-    res.render('tree');
+    res.render('about');
   });
 
 app.listen(port, function () {
