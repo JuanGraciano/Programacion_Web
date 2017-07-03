@@ -105,63 +105,56 @@ body {
   	}
 }
 
-#treeRender .root{
-    text-decoration: none;
-    
-}
 
 .demo {
-  margin: 0 auto;
-  width: 94%;
+  margin: 0;
+  /*width: 94%;*/
   text-decoration: none;
 }
 
-.root > li {
-/*    text-align: center;
+.root {
+    text-align: center;
     text-decoration: none;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    padding-right: 5px;
-    padding-left: 5px;
-    width: 50px;
+    /*padding-top: p: 5px;*/
+    /*padding-bottom: 5px;*/
+    /*padding-right: 5px;*/
+    /*padding-left: 5px;*/
+    /*width: 50px;*/
     border: 1px solid #141B41;
     border-radius: 30px;
     background: #141B41;
-    color: white;*/
+    /*color: white;*/
     /*margin: 0 auto;*/
-    color: red;
+    padding: 2px 10px;
+    display: inline;
+    color: white;
+    /*display: block;*/
+
 }
 
 .hasChild {
-/*    text-align: center;
-    margin-top: 5px;
-    margin-bottom:5px;
+    /*text-align: center;*/
     text-decoration: none;
-    padding-top: 10px;
-    padding-bottom: 10px;*/
-    /*padding-right: 5px;
-    padding-left: 5px;*/
-    /*width: 10px;*/
-    /*border: 1px solid #306BAC;
-    border-radius: 30px;
-    background: #306BAC;*/
-    color: black;
+    margin-top: 10px;
+    width: 50px;
+    border: 1px solid #306BAC;
+    border-radius: 5px;
+    background: #306BAC;
+    color: white;
+    display: block;
+    padding: 5px 10px;
 }
 
 .child{
-    /*text-align: center;*/
-   /* margin-top: 5px;
-    margin-bottom: 5px;
+    text-align: center;
     text-decoration: none;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    padding-right: 5px;
-    padding-left: 5px;
-    width: 50px;
+    width: 70px;
     border: 1px solid #918EF4;
-    border-radius: 50px;
-    background: #918EF4;*/
-    color: green;
+    border-radius: 30px;
+    background: #918EF4;
+    color: white;
+    display: block;
+    padding: 5px 10px;
 }
 
 

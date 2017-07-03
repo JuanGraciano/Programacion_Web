@@ -2,10 +2,10 @@
 var tree = '';
 
 function head(){
-	tree = '<ul class="root">';
-	tree += '<li> ' + document.body.tagName + '</li>';
+	tree = '<ul class="demo">';
+	tree += '<li class="root"> ' + document.body.tagName + '</li>';
 	for(var i = 0; i < document.body.children.length; i++){
-		tree += '<ul >';
+		tree += '<ul>';
 		headChild(document.body.children, i);
 		tree += '</ul>';
 	}
