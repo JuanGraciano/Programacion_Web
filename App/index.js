@@ -16,16 +16,16 @@ app.engine('handlebars',
 
 app.set('view engine', 'handlebars');
 
+app.get('/perreo', function (req, res) {
+    res.render('tree');
+  });
+
 app.get('/', function (req, res) {
   	 res.render('home');
   });
 
 app.get('/about', function (req, res) {
   	res.render('about');
-  });
-
-app.get('/perreo', function (req, res) {
-    res.render('about');
   });
 
 app.listen(port, function () {
