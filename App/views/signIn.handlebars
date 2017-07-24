@@ -1,0 +1,134 @@
+<div class="div">
+    <div class="container">
+
+        <div class="col-sm-6 col-sm-offset-3">
+
+            <h1><span class="fa fa-sign-in"></span> Login</h1>
+
+            <!-- show any messages that come back with authentication -->
+            <!--<% if (message.length > 0) { %>
+                <div class="alert alert-danger"><%= message %></div>
+            <% } %>-->
+            <div id="message"></div>
+
+            <!-- LOGIN FORM -->
+            <form id="login-form" action="/login" method="post">
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="text" class="form-control" name="email" id="email">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" class="form-control" name="password" id="password">
+                </div>
+
+                <button type="submit" class="btn btn-warning btn-lg">Login</button>
+            </form>
+
+            <hr>
+
+            <p>Need an account? <a href="/signup">Signup</a></p>
+            <p>Or go <a href="viewPizza">home</a>.</p>
+
+        </div>
+
+    </div>
+</div>
+
+
+<script>
+
+    Ajax = {
+        buildHttpParams: function(params) {
+            str = "";
+            var keys = Object.keys(params);
+            for (var i = 0; i < keys.length; i++) {
+                var key = keys[i];
+
+                if (i == 0) {
+                    str += key + '=' + params[key];
+                } else {
+                    str += '&' + key + '=' + params[key];
+                }
+            }
+            return str;
+        },
+        postOld: function(url, params, callback) {
+            var xhr = new XMLHttpRequest();
+            var method = 'POST';
+
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                    callback(JSON.parse(xhr.responseText));
+                }
+            };
+            xhr.open(method, url, true);
+            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            var authorization = Ajax.getAuthorization();
+            if(authorization) {
+              xhr.setRequestHeader("x-access-token", authorization);
+            }
+            xhr.send(Ajax.buildHttpParams(params));
+            // console.log(Ajax.buildHttpParams(params));
+        },
+        getAuthorization: function(){
+          return localStorage.getItem('token');
+        }
+    };
+
+    function showErrorMessage(errorMessage) {
+        var alertMsg = document.createElement('div');
+        var btn = document.createElement('button');
+        var span = document.createElement('span');
+
+        alertMsg.className = 'alert alert-danger alert-dismissible"';
+        alertMsg.setAttribute('role', 'alert');
+
+        btn.className = 'close';
+        btn.setAttribute('data-dismiss', 'alert');
+        btn.setAttribute('aria-label', 'Close');
+        btn.innerHTML = '<span aria-hidden="true">&times;</span>';
+
+        span.innerHTML = '<strong>Warning!</strong> ' + errorMessage;
+
+        alertMsg.appendChild(btn);
+        alertMsg.appendChild(span);
+        messageContainer.appendChild(alertMsg);
+    }
+
+    (function() {
+      'use strict';
+
+      document.addEventListener("DOMContentLoaded", function(event) {
+
+            var loginForm = document.getElementById('login-form');
+            var errorMessageContainer = document.getElementById('message');
+            var email = document.getElementById('email');
+            var password = document.getElementById('password');
+
+            loginForm.onsubmit = onLogin;
+
+            function onLogin(evt) {
+              evt.preventDefault();
+              var user = {
+                email: email.value,
+                password: password.value
+              };
+
+            Ajax.postOld('authenticate', user, function(response) {
+                if (response.success == true) {
+                  
+                  localStorage.setItem('userId', response._id);
+                  localStorage.setItem('username', response.username);
+                  localStorage.setItem('email', response.email);
+                  localStorage.setItem('token', response.token);
+                  window.location.assign('viewPizza');
+                } else {
+                  app.showErrorMessage('No funciona');
+                  return false;
+                }
+            });
+        }
+      });
+    })();
+</script>

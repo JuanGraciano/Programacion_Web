@@ -15,6 +15,10 @@ html {
   box-sizing: inherit;
 }
 
+.div {
+  padding-left: 60px; 
+}
+
 body {
   color: red;
   position: relative;
@@ -70,7 +74,7 @@ body {
   	bottom: 0;
   	left: 0;
   	padding: 1rem;
-  	background-color: #333;
+  	background-color: #0d0d0d;
   	text-align: center;
 }
 
@@ -78,7 +82,7 @@ body {
   	list-style-type: none;
     margin: 0;
     padding: 0;
-    background-color: #333;
+    background-color: #0d0d0d;
     /*overflow: hidden;*/
 }
 
@@ -88,7 +92,7 @@ body {
 
 .footer ul > li > a {
   	display: block;
-  	color: white;
+  	color: #cccccc;
   	text-align: center;
   	padding: 14px 16px;
   	text-decoration: none;

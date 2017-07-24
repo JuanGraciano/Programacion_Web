@@ -1,0 +1,147 @@
+<div id="old_order"></div>
+
+<script>
+Ajax = {
+    get: function(url, params, callback) {
+        var xhr = new XMLHttpRequest();
+        var method = 'GET';
+
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                callback(JSON.parse(xhr.responseText));
+            }
+        };
+        xhr.open(method, url, true);
+        var authorization = Ajax.getAuthorization();
+        if(authorization) {
+          xhr.setRequestHeader("x-access-token", authorization);
+        }
+        xhr.send();
+    },
+    post: function(url, params, callback) {
+        var xhr = new XMLHttpRequest();
+        var method = 'POST';
+
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                callback(JSON.parse(xhr.responseText));
+            }
+        };
+        xhr.open(method, url, true);
+        xhr.setRequestHeader("Content-type", "application/json; charset=utf-8");
+        var authorization = Ajax.getAuthorization();
+        if(authorization) {
+          xhr.setRequestHeader("x-access-token", authorization);
+        }
+        xhr.send(JSON.stringify(params));
+    },
+
+    getAuthorization: function(){
+      return localStorage.getItem('token');
+    }
+};
+
+(function() {
+  'use strict';
+
+  document.addEventListener("DOMContentLoaded", function(event) {
+    var grid = document.getElementById('old_order');
+    console.log(localStorage.getItem('token'));
+    var dummyToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyIkX18iOnsic3RyaWN0TW9kZSI6dHJ1ZSwic2VsZWN0ZWQiOnt9LCJnZXR0ZXJzIjp7fSwiX2lkIjoiNTk3NjA5MWI2NjAwYmUyNDhjNDhkMmI1Iiwid2FzUG9wdWxhdGVkIjpmYWxzZSwiYWN0aXZlUGF0aHMiOnsicGF0aHMiOnsidG9rZW4iOiJtb2RpZnkiLCJfX3YiOiJpbml0IiwiZW1haWwiOiJpbml0IiwicGFzc3dvcmQiOiJpbml0IiwidXNlcm5hbWUiOiJpbml0IiwiX2lkIjoiaW5pdCJ9LCJzdGF0ZXMiOnsiaWdub3JlIjp7fSwiZGVmYXVsdCI6e30sImluaXQiOnsiX192Ijp0cnVlLCJlbWFpbCI6dHJ1ZSwicGFzc3dvcmQiOnRydWUsInVzZXJuYW1lIjp0cnVlLCJfaWQiOnRydWV9LCJtb2RpZnkiOnsidG9rZW4iOnRydWV9LCJyZXF1aXJlIjp7fX0sInN0YXRlTmFtZXMiOlsicmVxdWlyZSIsIm1vZGlmeSIsImluaXQiLCJkZWZhdWx0IiwiaWdub3JlIl19LCJwYXRoc1RvU2NvcGVzIjp7fSwiZW1pdHRlciI6eyJkb21haW4iOm51bGwsIl9ldmVudHMiOnt9LCJfZXZlbnRzQ291bnQiOjAsIl9tYXhMaXN0ZW5lcnMiOjB9fSwiaXNOZXciOmZhbHNlLCJfZG9jIjp7InRva2VuIjoiMCIsIl9fdiI6MCwiZW1haWwiOiJsYXBhcmFzQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiZmluYSIsInVzZXJuYW1lIjoiZG9taW5pY2FubG92ZSIsIl9pZCI6IjU5NzYwOTFiNjYwMGJlMjQ4YzQ4ZDJiNSJ9LCIkaW5pdCI6dHJ1ZSwiaWF0IjoxNTAwOTE3MjE5LCJleHAiOjE1MDEwMDM2MTl9.eoDs5NfNzuJ1Ien0XBE674QavY25BpW388bmBKn755k'
+    localStorage.setItem('token', dummyToken);
+    var currentUser = {
+        // token: localStorage.getItem('token')
+        token: dummyToken
+    };
+    Ajax.get('order', currentUser, function(offers) {
+        if (!offers.error) {
+            if(offers.length == 0){
+
+            }else{
+                for (var idx in offers) {
+                    buildOffer(grid, offers[idx]);
+                }
+            }
+        }
+    });
+
+    function buildOffer(container, offer) {
+        var card = document.createElement('div');
+        var thumbnail = document.createElement('div');
+        var btnOrder = document.createElement('button');
+        var caption = document.createElement('div');
+        var form = document.createElement('form');
+        var span = document.createElement('span');
+
+        form.setAttribute('method', 'POST');
+        form.setAttribute('action', '/confirmation');
+
+        card.className = "col-sm-6 col-md-4";
+        thumbnail.className = 'thumbnail';
+        caption.className = 'caption';
+
+        btnOrder.innerHTML = "Order Now";
+        btnOrder.className = "btn btn-primary pull-right";
+        btnOrder.onclick = onOrderNowClick;
+
+        var cheese = '', toppings = '';
+        for (var i in offer.pizzas.description.cheese){
+            if((i+2) < offer.pizzas.description.cheese.length)
+                cheese += offer.pizzas.description.cheese[i] + ', ';
+            else if((i+1) == offer.pizzas.description.cheese.length-1)
+                cheese += offer.pizzas.description.cheese[i] + 'and ';
+            else
+                cheese += offer.pizzas.description.cheese[i];
+        }
+        for (var i in offer.pizzas.description.toppings){
+            toppings += offer.pizzas.description.toppings[i] + ' '
+        }
+        var description = 'This pizza has: crust ' +offer.pizzas.description.crust+ ', sauce ' +offer.pizzas.description.sauce+ ', cheese '+cheese+ ', toppings ' +toppings;
+
+        var titles = '';
+        titles += offer.pizzas.title;
+
+        thumbnail.innerHTML = '<img src="' + offer.pizzas.url + '">';
+        caption.innerHTML += '<h4>' + titles + '</h4>';
+        caption.innerHTML += '<p>' + description + '</p>';
+
+        span.innerHTML = '<span class="label label-primary"> $'+ offer.total.toFixed(2) +'</span>';
+        span.appendChild(btnOrder);
+
+        caption.appendChild(span);
+        thumbnail.appendChild(caption);
+        card.appendChild(thumbnail);
+        card.appendChild(form);
+        container.appendChild(card);
+
+        function onOrderNowClick() {
+          var order = {
+            pizzas: [
+                {
+                    cant: 1, 
+                    idPizza: offer.pizzas._id
+                }
+            ]
+          };
+          console.log(fdsf);
+
+          // if(!app.loginModule.isUserLogged()) {
+          //   location.assign('login');
+          //   return false;
+          // }
+
+          Ajax.post('order', order, function(res) {
+              if(result) {
+                window.location.assign('');
+              } else {
+                window.location.assign('login');
+              }
+            });
+
+          // form.submit();
+        }
+    }
+  });
+})();
+
+</script>

@@ -1,0 +1,119 @@
+<div class="div">
+    <div class="container">
+
+        <div class="col-sm-6 col-sm-offset-3">
+
+            <h1><span class="fa fa-sign-in"></span> Sign Up</h1>
+
+            <!-- show any messages that come back with authentication -->
+            <!--<% if (message.length > 0) { %>
+                <div class="alert alert-danger"><%= message %></div>
+            <% } %>-->
+
+            <!-- LOGIN FORM -->
+            <form id="Signup">
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" class="form-control" name="username" id="username">
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="text" class="form-control" name="email" id="email">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" class="form-control" name="password" id="password">
+                </div>
+                <div class="form-group">
+                    <label>confirm-password</label>
+                    <input type="password" class="form-control" name="confirmPassword" id="confirmPassword">
+                </div>  
+
+                <button type="submit" class="btn btn-warning btn-lg">Signup</button>
+            </form>
+
+            <hr>
+
+            <p>Already have an account? <a href="/login">Login</a></p>
+            <p>Or go <a href="viewPizza">home</a>.</p>
+
+        </div>
+
+
+    </div>
+</div>
+
+<script>
+
+    Ajax = {
+        post: function(url, params, callback) {
+            var xhr = new XMLHttpRequest();
+            var method = 'POST';
+
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 201) {
+                    callback(JSON.parse(xhr.responseText));
+                }
+            };
+            xhr.open(method, url, true);
+            xhr.setRequestHeader("Content-type", "application/json; charset=utf-8");
+            var authorization = Ajax.getAuthorization();
+            if(authorization) {
+              xhr.setRequestHeader("Authorization", authorization);
+            }
+            xhr.send(JSON.stringify(params));
+        },
+        getAuthorization: function(){
+          return 'Basic ' + localStorage.getItem('token');
+        } 
+    };
+
+
+    (function() {
+        'use strict';
+
+        document.addEventListener("DOMContentLoaded", function(event) {
+            var signupForm = document.getElementById('Signup');
+            var nameField = document.getElementById('username');
+            var emailField = document.getElementById('email');
+            var passwordField = document.getElementById('password');
+            var repasswordField = document.getElementById('confirmPassword');
+
+            signupForm.onsubmit = onSubmitForm;
+
+            function onSubmitForm(event) {
+                event.preventDefault();
+
+                if (passwordField.value != repasswordField.value) {
+                    console.log('Passwords do not match!');
+                    return false;
+                }
+
+                var newUser = {
+                    username: nameField.value,
+                    email: emailField.value,
+                    password: passwordField.value,
+                };
+
+
+                Ajax.post('newUser', newUser, function(response) {
+                    if (response.success == true) {
+
+                        localStorage.setItem('userId', response._id);
+                        localStorage.setItem('username', response.username);
+                        localStorage.setItem('email', response.email);
+                        localStorage.setItem('token', response.token);
+
+                        window.location.assign('/viewPizza');
+                    } else {
+
+                        return false;
+                    }
+                });
+
+                return false;
+            }
+        });
+    })();
+
+</script>

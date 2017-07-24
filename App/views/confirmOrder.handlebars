@@ -1,0 +1,129 @@
+<div class="card">
+    <h1>Order Confirmation</h1>
+    <h3>Your Pizza</h3>
+
+    <table class="table table-striped">
+        <tr>
+            <th>Description</th>
+            <th></th>
+        </tr>
+        <tr>
+            <td>Crust</td>
+            <td id="order-crust">{{order.crust}}</td>
+        </tr>
+        <tr>
+            <td>Sauce</td>
+            <td id="order-sauce">{{order.sauce}}</td>
+        </tr>
+        <tr>
+            <td>Cheese</td>
+            <td id="order-cheese">{{order.cheese}}</td>
+        </tr>
+        <tr>
+            <td>Toppings</td>
+            <td id="order-toppings">{{order.toppings}}</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><strong>Total Price</strong></td>
+            <td >$<span id="order-price">{{order.price}}</span>
+              <input  type="hidden" id="order-discount" value="{{order.hasDiscount}}"/>
+            </td>
+        </tr>
+    </table>
+
+    <button id="btn-cancel" class="btn btn-default">Cancel</button>
+    <button id="btn-confirm" class="btn btn-primary">Confirm</button>
+
+</div>
+<script>
+
+    Ajax = {
+        post: function(url, params, callback) {
+            var xhr = new XMLHttpRequest();
+            var method = 'POST';
+
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 201) {
+                    callback(JSON.parse(xhr.responseText));
+                }
+            };
+            xhr.open(method, url, true);
+            xhr.setRequestHeader("Content-type", "application/json; charset=utf-8");
+            var authorization = Ajax.getAuthorization();
+            if(authorization) {
+              xhr.setRequestHeader("x-access-token", authorization);
+            }
+            xhr.send(JSON.stringify(params));
+        },
+        getAuthorization: function(){
+          return 'Basic ' + localStorage.getItem('token');
+        } 
+    };
+
+(function() {
+    'use strict';
+
+    document.addEventListener("DOMContentLoaded", function(event) {
+        var crust = document.getElementById('order-crust');
+        var sauce = document.getElementById('order-sauce');
+        var cheese = document.getElementById('order-cheese');
+        var toppings = document.getElementById('order-toppings');
+        var price = document.getElementById('order-price');
+        var hasDiscount = document.getElementById('order-discount');
+
+        var btnConfirm = document.getElementById('btn-confirm');
+        var btnCancel = document.getElementById('btn-cancel');
+
+        btnConfirm.onclick = confirmOrder;
+        btnCancel.onclick = cancelOrder;
+
+        function Pizza(ingredients) {
+            this.ingredients = ingredients;
+            this.title = buildTitle(size, ingredients);
+            return this;
+
+            function buildTitle(ingredients) {
+                return ingredients.cheese + ', ' + toppings[0] + 'pizza with ' + ingredients.crust + 'crust';
+            }
+        }
+
+        function confirmOrder() {
+            var ingredients = {
+                crust: crust.innerHTML,
+                sauce: sauce.innerHTML,
+                cheese: cheese.innerHTML,
+                toppings: toppings.innerHTML
+            };
+
+            var order = {
+                crust: ingredients.crust,
+                sauce: ingredients.sauce,
+                cheese: ingredients.cheese,
+                toppings: ingredients.toppings,
+                userId: localStorage.getItem('email'),
+                price: (price.innerHTML)
+            };
+            // return false;
+
+            Ajax.post('order', order, function(res) {
+              if(res.success) {
+                window.location.assign('');
+              } else {
+                window.location.assign('login');
+              }
+            });
+        }
+
+        function cancelOrder() {
+            console.log('cancel order');
+            location.assign('viewPizza');
+        }
+
+    });
+})();
+
+</script>
