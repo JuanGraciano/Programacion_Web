@@ -40,7 +40,7 @@ module.exports = function(app) {
     app.post('/pizza', addPizza);
     app.put('/pizza', updatePizza);
     app.delete('/pizza', deletePizza);
-    app.post('/PIZZANUEVADB1', addPizzaNueva1);
+    app.get('/PIZZANUEVADB1', addPizzaNueva1);
     app.post('/PIZZANUEVADB2', addPizzaNueva2);
     app.post('/PIZZANUEVADB3', addPizzaNueva3);
 
