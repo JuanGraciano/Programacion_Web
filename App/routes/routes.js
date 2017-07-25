@@ -41,8 +41,8 @@ module.exports = function(app) {
     app.put('/pizza', updatePizza);
     app.delete('/pizza', deletePizza);
     app.get('/PIZZANUEVADB1', addPizzaNueva1);
-    app.post('/PIZZANUEVADB2', addPizzaNueva2);
-    app.post('/PIZZANUEVADB3', addPizzaNueva3);
+    app.get('/PIZZANUEVADB2', addPizzaNueva2);
+    app.get('/PIZZANUEVADB3', addPizzaNueva3);
 
     //Order routes
     app.get('/order', findAllOrder);
