@@ -1,7 +1,7 @@
 var express = require('express');
 var app = express();
 var exphbs = require('express-handlebars');
-var helpers = require(__dirname +  '/lib/helpers'), 
+var helpers = require('./lib/helpers'), 
     bodyParser = require('body-parser'),
     // cors = require('cors'),
     router = express.Router(),
@@ -34,7 +34,12 @@ app.set('view engine', 'handlebars');
 
 
 // routes ======================================================================
-require(__dirname + '/routes/routes.js')(app);
+require('./routes/routes.js')(app);
+
+
+app.get('/viewPizza', function (req, res) {
+    res.render('pizza');
+  });
 
 app.get('/perreo', function (req, res) {
     res.render('tree');

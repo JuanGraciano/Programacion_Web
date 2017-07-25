@@ -40,7 +40,6 @@ module.exports = function(app) {
     app.post('/pizza', addPizza);
     app.put('/pizza', updatePizza);
     app.delete('/pizza', deletePizza);
-    app.get('/viewPizza', showpizza);
 
     //Order routes
     app.get('/order', findAllOrder);
