@@ -61,18 +61,6 @@ module.exports = function(app) {
 				res.status(errorPizza.pizzaExist[0]).send(errorPizza.pizzaExist[1]);
 			}
 			else {
-
-/*{
-    "title": "Genius",
-    "description": {
-    	"crust": "Thick ",
-        "sauce": "gooey",
-        "toppings": "onion",
-        "cheese": "Bacon"
-    }, 
-    "price": 25
-}*/
-
 				console.log('POST');
 				var newPizzaObj = new pizza({
 					url: req.body.url,
@@ -93,6 +81,80 @@ module.exports = function(app) {
 						res.status(success.created).json(resultObj);
 					}
 				});
+			}
+		});
+	};
+
+
+	//POST - Insert a new pizza in the DB
+	addPizzaNueva1 = function(req, res) {
+		// console.log(req.body);
+		console.log('POST');
+		var newPizzaObj = new pizza({
+			url: 'static/img/v.jpg',
+            title: 'Genius',
+            description: {
+            	crust: 'Thick',
+		        sauce: 'gooey',
+		        toppings: ['onion'],
+		        cheese: ['Bacon']
+            }, 
+            price: 25
+		});
+		newPizzaObj.save(function(err, resultObj) {
+			if (err){
+				res.status(errorDatabase.create[0]).send(errorDatabase.create[1]);
+			}
+			else{
+				res.status(success.created).json(resultObj);
+			}
+		});
+	};
+
+	addPizzaNueva2 = function(req, res) {
+		// console.log(req.body);
+		console.log('POST');
+		var newPizzaObj = new pizza({
+			url: 'static/img/v.jpg',
+            title: 'Mormaii',
+            description: {
+            	crust: 'Thick',
+		        sauce: 'Bechamel',
+		        toppings: ['pepperoni'],
+		        cheese: ['chedar']
+            }, 
+            price: 30
+		});
+		newPizzaObj.save(function(err, resultObj) {
+			if (err){
+				res.status(errorDatabase.create[0]).send(errorDatabase.create[1]);
+			}
+			else{
+				res.status(success.created).json(resultObj);
+			}
+		});
+	};
+
+	addPizzaNueva3 = function(req, res) {
+		// console.log(req.body);
+		console.log('POST');
+		var newPizzaObj = new pizza({
+			url: 'static/img/v.jpg',
+            title: 'Magistral',
+            description: {
+            	crust: 'Thick',
+		        sauce: 'Bechamel',
+		        toppings: ['pepperoni'],
+		        cheese: ['chedar']
+            }, 
+            price: 20
+		});
+		newPizzaObj.save(function(err, resultObj) {
+			if (err){
+				res.status(errorDatabase.create[0]).send(errorDatabase.create[1]);
+			}
+			else{
+				res.status(success.created).json(resultObj);
 			}
 		});
 	};
