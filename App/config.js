@@ -1,6 +1,6 @@
 module.exports = {
     secret: 'pizzaXpress2017',
-    database: 'mongodb://localhost/PizzaDB',
+    database: 'mongodb://localhost:27017/PizzaDB',
     consumerKey:     'qyprdKHhX89PE8PvETm7ZtLpCh09GB',
     consumerSecret:  'SWlvo4oQVcxauPbnfzLP6mkSKrGyvc4I6a5Mvr7j',
     token:           'qyprdP3sjqgmHoF7bxqTm3YxWaMF7YTNwTM2Ua8fVezzCYvo',

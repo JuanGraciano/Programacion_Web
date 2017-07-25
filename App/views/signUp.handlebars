@@ -59,7 +59,7 @@
             xhr.setRequestHeader("Content-type", "application/json; charset=utf-8");
             var authorization = Ajax.getAuthorization();
             if(authorization) {
-              xhr.setRequestHeader("Authorization", authorization);
+              xhr.setRequestHeader("x-access-token", authorization);
             }
             xhr.send(JSON.stringify(params));
         },
@@ -104,7 +104,7 @@
                         localStorage.setItem('email', response.email);
                         localStorage.setItem('token', response.token);
 
-                        window.location.assign('/viewPizza');
+                        window.location.assign('viewPizza');
                     } else {
 
                         return false;
