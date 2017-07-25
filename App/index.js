@@ -1,7 +1,7 @@
 var express = require('express');
 var app = express();
 var exphbs = require('express-handlebars');
-var helpers = require('./lib/helpers'), 
+var helpers = require(__dirname +  '/lib/helpers'), 
     bodyParser = require('body-parser'),
     // cors = require('cors'),
     router = express.Router(),
@@ -32,7 +32,7 @@ app.use(bodyParser.urlencoded({
 
 
 // routes ======================================================================
-require('./routes/routes.js')(app);
+require(__dirname + '/routes/routes.js')(app);
 
 
 
