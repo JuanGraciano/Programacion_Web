@@ -30,13 +30,11 @@ app.use(bodyParser.urlencoded({
     extended: true
 })); // support encoded bodies
 
+app.set('view engine', 'handlebars');
+
 
 // routes ======================================================================
 require(__dirname + '/routes/routes.js')(app);
-
-
-
-app.set('view engine', 'handlebars');
 
 app.get('/perreo', function (req, res) {
     res.render('tree');
